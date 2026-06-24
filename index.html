@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" x-data="{ cart: 0, mobileMenu: false, loginModal: false }">
+<html lang="id" x-data="{ cart: 0, mobileMenu: false,}">
 <head>
   <meta charset="UTF-8" />
   <meta
@@ -166,13 +166,6 @@ class="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white text-xs rounded-fu
             </div>
           </button>
 
-          <!-- LOGIN -->
-          <button @click="loginModal = true"
-            class="hidden md:flex items-center gap-2 px-5 py-3 rounded-full border border-slate-300 hover:border-primary hover:text-primaryDark transition font-semibold">
-            <i class="fa-regular fa-user"></i>
-            Login
-          </button>
-
           <!-- CTA -->
           <a href="https://wa.me/62085185212663"
              target="_blank"
@@ -180,12 +173,6 @@ class="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white text-xs rounded-fu
             <i class="fa-brands fa-whatsapp"></i>
             Tanya via WA
           </a>
-
-          <!-- MOBILE -->
-          <button @click="mobileMenu = !mobileMenu"
-            class="lg:hidden w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center">
-            <i class="fa-solid fa-bars"></i>
-          </button>
 
         </div>
 
@@ -200,11 +187,6 @@ class="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white text-xs rounded-fu
         <a href="#story" class="hover:text-primaryDark">Tentang Kami</a>
         <a href="#collection" class="hover:text-primaryDark">Collection</a>
         <a href="#contact" class="hover:text-primaryDark">Contact</a>
-
-        <button @click="loginModal = true"
-          class="mt-2 px-5 py-3 rounded-full border border-slate-300">
-          Login
-        </button>
 
         <a href="https://wa.me/62085185212663"
           target="_blank"
@@ -232,12 +214,12 @@ class="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white text-xs rounded-fu
             Viora Bracellet:
           </span>
           <br>
-          Pancarkan Energimu Lewat Sentuhan Estetika Modern.
+          Pancarkan Energimu Lewat Sentuhan Estetika Modern Alami.
         </h1>
 
         <p class="text-slate-600 text-lg leading-relaxed max-w-2xl mb-10">
           Gelang eksklusif hasil karya Student Company Nova Wave.
-          Dirancang dengan material premium untuk melengkapi gaya kasual maupun formal anak muda masa kini.
+          Dirancang dengan material premium alam untuk melengkapi gaya kasual maupun formal anak muda masa kini.
         </p>
 
         <div class="flex flex-col sm:flex-row gap-5">
@@ -1372,7 +1354,7 @@ Pesan
     <!-- IMAGE -->
     <div class="relative overflow-hidden">
 
-        <img src="kala Wave 1.jpeg"
+        <img src="Kala Wave 1.jpeg"
              class="w-full h-72 object-cover group-hover:scale-105 duration-500">
 
         <!-- Badge -->
@@ -1818,7 +1800,7 @@ Pesan
           </div>
 
           <p class="text-slate-300 leading-relaxed">
-            Student Company modern dengan semangat inovasi, kreativitas, dan desain premium untuk generasi muda masa kini.
+            Student Company  asal Indonesia dari SMAN 24 BANDUNG. dengan semangat inovasi, kreativitas, dan desain premium dari bahan eco-friendly yang mendukung kesehatan bumi.
           </p>
         </div>
 
@@ -1902,105 +1884,6 @@ Pesan
     </div>
   </footer>
 
-  <!-- LOGIN MODAL -->
-  <div x-show="loginModal"
-       x-transition
-       class="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-6">
-
-    <div @click.away="loginModal = false"
-         class="bg-white w-full max-w-md rounded-[35px] p-10 shadow-2xl">
-
-      <div class="flex items-center justify-between mb-8">
-
-        <div>
-          <p class="text-primaryDark font-bold uppercase tracking-[0.3em] text-sm">
-            Secure Login
-          </p>
-
-          <h3 class="text-3xl font-black mt-2">
-            Welcome Back
-          </h3>
-        </div>
-
-        <button @click="loginModal = false"
-          class="w-12 h-12 rounded-full bg-slate-100 hover:bg-slate-200 transition">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-
-      </div>
-
-      <form class="space-y-6">
-
-        <div>
-          <label class="block text-sm font-semibold mb-3">
-            Email Address
-          </label>
-
-          <input type="email"
-                 placeholder="you@example.com"
-                 class="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary"/>
-        </div>
-
-        <div>
-          <label class="block text-sm font-semibold mb-3">
-            Password
-          </label>
-
-          <input type="password"
-                 placeholder="••••••••"
-                 class="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary"/>
-        </div>
-
-        <div class="flex items-center justify-between text-sm">
-          <label class="flex items-center gap-2">
-            <input type="checkbox"/>
-            Remember me
-          </label>
-
-          <a href="#" class="text-primaryDark font-semibold">
-            Forgot Password?
-          </a>
-        </div>
-
-        <button type="submit"
-          class="w-full py-4 rounded-2xl bg-primary hover:bg-primaryDark transition text-white font-bold text-lg shadow-xl shadow-primary/30">
-          Login
-        </button>
-
-        <div class="relative text-center">
-          <div class="absolute left-0 top-1/2 w-full h-px bg-slate-200"></div>
-          <span class="relative bg-white px-4 text-slate-400 text-sm">
-            OR CONTINUE WITH
-          </span>
-        </div>
-
-        <div class="grid grid-cols-2 gap-4">
-
-          <button type="button"
-            class="py-4 rounded-2xl border border-slate-200 hover:border-primary transition font-semibold">
-            <i class="fa-brands fa-google mr-2"></i>
-            Google
-          </button>
-
-          <button type="button"
-            class="py-4 rounded-2xl border border-slate-200 hover:border-primary transition font-semibold">
-            <i class="fa-brands fa-apple mr-2"></i>
-            Apple
-          </button>
-
-        </div>
-
-        <p class="text-center text-slate-500 text-sm pt-2">
-          Belum punya akun?
-          <a href="#" class="text-primaryDark font-bold">
-            Daftar Sekarang
-          </a>
-        </p>
-
-      </form>
-
-    </div>
-  </div>
 <script>
 function shop(){
 
@@ -2394,7 +2277,7 @@ Nama Lengkap
 
 <input
 x-model="customerName"
-placeholder="Masukan Nama lengkap"
+placeholder="Masukan ama lengkap"
 class="w-full px-5 py-4 rounded-2xl border border-slate-200">
 
 </div>
