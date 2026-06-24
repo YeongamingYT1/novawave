@@ -140,48 +140,54 @@ class="bg-slate-50 text-slate-900 overflow-x-hidden">
         </div>
 
         <!-- ACTION -->
-        <div class="flex items-center gap-3">
+<div class="flex items-center gap-3">
 
-          <!-- CART -->
-          <button
-@click="showCart=true"
-class="relative w-12 h-12 rounded-full bg-slate-100 hover:bg-slate-200 transition flex items-center justify-center">
+  <!-- WA MOBILE -->
+  <a href="https://wa.me/62085185212663?text=Halo%20Nova%20Wave%20👋"
+     target="_blank"
+     class="flex lg:hidden items-center justify-center w-12 h-12 rounded-full bg-primary text-white shadow-lg">
 
-<i class="fa-solid fa-bag-shopping text-slate-800"></i>
+      <i class="fa-brands fa-whatsapp"></i>
 
-<div
-x-show="totalItems>0"
-class="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
+  </a>
 
-<span x-text="totalItems"></span>
+  <!-- CART -->
+  <button
+    @click="showCart=true"
+    class="relative w-12 h-12 rounded-full bg-slate-100 hover:bg-slate-200 transition flex items-center justify-center">
+
+      <i class="fa-solid fa-bag-shopping text-slate-800"></i>
+
+      <div
+      x-show="totalItems>0"
+      class="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
+
+        <span x-text="totalItems"></span>
+
+      </div>
+
+  </button>
+
+  <!-- HAMBURGER -->
+  <button
+      @click="mobileMenu = !mobileMenu"
+      class="lg:hidden w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center">
+
+      <i class="fa-solid fa-bars"></i>
+
+  </button>
+
+  <!-- WA DESKTOP -->
+  <a href="https://wa.me/62085185212663?text=Halo%20Nova%20Wave%20👋"
+     target="_blank"
+     class="hidden lg:flex items-center gap-2 px-6 py-3 rounded-full bg-primary hover:bg-primaryDark transition text-white font-semibold shadow-lg shadow-primary/30">
+
+      <i class="fa-brands fa-whatsapp"></i>
+      Tanya via WA
+
+  </a>
 
 </div>
-
-</button>
-
-            <div x-show="cart > 0"
-                 x-transition
-                 class="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
-              <span x-text="cart"></span>
-            </div>
-          </button>
-
-          <!-- CTA -->
-          <a href="https://wa.me/62085185212663?text=Halo%20Nova%20Wave%20👋%0A%0ASaya%20tertarik%20dengan%20koleksi%20gelang%20Nova%20Wave.%0A%0AMohon%20informasi%20mengenai:%0A%0A✨%20Varian%20yang%20tersedia%0A✨%20Ketersediaan%20stok%0A✨%20Detail%20material%20produk%0A✨%20Harga%20terbaru%0A✨%20Metode%20pengambilan%0A%0ATerima%20kasih%20🙏"
-   target="_blank"
-   class="hidden md:flex items-center gap-2 px-6 py-3 rounded-full bg-primary hover:bg-primaryDark transition text-white font-semibold shadow-lg shadow-primary/30">
-
-    <i class="fa-brands fa-whatsapp"></i>
-    Tanya via WA
-
-</a>
-<!-- MOBILE -->
-          <button @click="mobileMenu = !mobileMenu"
-            class="lg:hidden w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center">
-            <i class="fa-solid fa-bars"></i>
-          </button>
-
-        </div>
 
       </div>
 
@@ -200,7 +206,6 @@ class="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white text-xs rounded-fu
           class="px-5 py-3 rounded-full bg-primary text-white">
           Tanya via WA
         </a>
-
       </div>
     </nav>
   </header>
