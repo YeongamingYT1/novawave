@@ -167,12 +167,14 @@ class="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white text-xs rounded-fu
           </button>
 
           <!-- CTA -->
-          <a href="https://wa.me/62085185212663"
-             target="_blank"
-             class="hidden md:flex items-center gap-2 px-6 py-3 rounded-full bg-primary hover:bg-primaryDark transition text-white font-semibold shadow-lg shadow-primary/30">
-            <i class="fa-brands fa-whatsapp"></i>
-            Tanya via WA
-          </a>
+          <a href="https://wa.me/62085185212663?text=Halo%20Nova%20Wave%20👋%0A%0ASaya%20tertarik%20dengan%20produk%20Nova%20Wave.%0A%0ASaya%20ingin%20menanyakan:%0A%0A1.%20Ketersediaan%20stok%20saat%20ini%0A2.%20Varian%20yang%20tersedia%0A3.%20Harga%20terbaru%0A4.%20Informasi%20pengambilan%20produk%0A%0AMohon%20informasinya.%20Terima%20kasih%20🙏"
+   target="_blank"
+   class="hidden md:flex items-center gap-2 px-6 py-3 rounded-full bg-primary hover:bg-primaryDark transition text-white font-semibold shadow-lg shadow-primary/30">
+
+    <i class="fa-brands fa-whatsapp"></i>
+    Tanya via WA
+
+</a>
 
         </div>
 
@@ -464,6 +466,11 @@ WAVE berarti  gelombang, yang merepresentasikan pergerakan perubahan berkelanjut
 
         <p class="text-slate-600 text-lg max-w-2xl mx-auto">
           Koleksi eksklusif dengan karakter berbeda untuk setiap gaya modern.
+        </p>
+
+    <br>
+        <p>
+            Mohon Pastikan untuk memeriksa ketersediaan stok sebelum melakukan pemesanan. Stok dapat berubah sewaktu-waktu, dan kami tidak dapat menjamin ketersediaan produk pada saat pemesanan.
         </p>
       </div>
 
@@ -1819,9 +1826,2317 @@ Pesan
         </p>
 
         <div class="flex gap-6 text-slate-400 text-sm">
-          <a href="#" class="hover:text-primary transition">Privacy Policy</a>
-          <a href="#" class="hover:text-primary transition">Terms</a>
-          <a href="#" class="hover:text-primary transition">Support</a>
+            <a href="privacy.html" class="hover:text-primary transition">
+                Privacy Policy
+            </a>
+
+            <a href="terms.html" class="hover:text-primary transition">
+                Terms
+            </a>
+
+            <a href="support.html" class="hover:text-primary transition">
+                Support
+            </a>
+        </div>
+
+      </div>
+
+    </div>
+  </footer>
+
+<script>
+function shop(){
+
+return{
+
+showCart:false,
+
+cartItems:[],
+
+showOrderModal:false,
+pickupMethod:'',
+
+customerName:'',
+
+homeAddress:'',
+schoolClass:'',
+
+addToCart(product,price){
+
+let existing=this.cartItems.find(item=>item.name===product);
+
+if(existing){
+
+existing.qty++;
+
+}else{
+
+this.cartItems.push({
+name:product,
+price:price,
+qty:1
+});
+
+}
+
+this.saveCart();
+
+},
+
+buyNow(product,price){
+
+this.addToCart(product,price);
+
+this.showCart=true;
+
+},
+
+increase(index){
+
+this.cartItems[index].qty++;
+this.saveCart();
+
+},
+
+decrease(index){
+
+if(this.cartItems[index].qty>1){
+
+this.cartItems[index].qty--;
+
+}else{
+
+this.cartItems.splice(index,1);
+
+}
+
+this.saveCart();
+
+},
+
+removeItem(index){
+
+this.cartItems.splice(index,1);
+this.saveCart();
+
+},
+
+clearCart(){
+
+this.cartItems=[];
+
+localStorage.removeItem("viora-cart");
+
+},
+
+get totalItems(){
+
+return this.cartItems.reduce((a,b)=>a+b.qty,0);
+
+},
+
+get totalPrice(){
+
+return this.cartItems.reduce(
+(sum,item)=>sum+(item.price*item.qty),
+0
+);
+
+},
+
+saveCart(){
+
+localStorage.setItem(
+"viora-cart",
+JSON.stringify(this.cartItems)
+);
+
+},
+
+init(){
+
+let data=localStorage.getItem("viora-cart");
+
+if(data){
+
+this.cartItems=JSON.parse(data);
+
+}
+
+},
+
+checkoutWA(){
+
+this.showOrderModal=true;
+
+},
+
+sendOrder(){
+
+if(this.customerName==''){
+
+alert("Masukkan nama lengkap");
+
+return;
+
+}
+
+if(
+(this.pickupMethod=="Rumah" && this.homeAddress=='') ||
+(this.pickupMethod=="Sekolah" && this.schoolClass=='')
+){
+
+alert(
+this.pickupMethod=='Rumah'
+?
+"Masukkan alamat rumah"
+:
+"Masukkan kelas"
+);
+
+return;
+
+}
+
+let text=`Halo Nova Wave 👋
+
+Saya ingin memesan produk berikut:
+
+━━━━━━━━━━━━━━
+🛍️ PRODUK
+`;
+
+this.cartItems.forEach((item,index)=>{
+
+text+=`
+${index+1}. ${item.name}
+Jumlah : ${item.qty}
+Harga : Rp${item.price.toLocaleString()}
+Subtotal : Rp${(item.price*item.qty).toLocaleString()}
+
+`;
+
+});
+
+text+=`━━━━━━━━━━━━━━
+
+💰 TOTAL
+Rp${this.totalPrice.toLocaleString()}
+
+🚚 METODE PENGAMBILAN
+${this.pickupMethod=="Rumah" ? "Ambil di Rumah" : "Ambil di Sekolah"}
+
+👤 NAMA PEMBELI
+${this.customerName}
+
+${this.pickupMethod=="Rumah" ? "📍 ALAMAT" : "🏫 KELAS"}
+${this.pickupMethod=="Rumah"
+? this.homeAddress
+: this.schoolClass}
+
+Terima kasih 🙏`;
+
+window.open(
+`https://wa.me/62085185212663?text=${encodeURIComponent(text)}`,
+'_blank'
+);
+
+// tutup modal
+this.showOrderModal=false;
+
+// kosongkan keranjang
+this.cartItems=[];
+
+// hapus localStorage
+localStorage.removeItem("viora-cart");
+
+// nama tetap disimpan
+
+// alamat dan kelas kosong setelah checkout
+this.homeAddress='';
+this.schoolClass='';
+
+// reset metode pengambilan
+this.pickupMethod='';
+
+},
+
+}
+
+}
+
+</script>
+<div
+x-show="showCart"
+x-transition
+class="fixed inset-0 bg-black/40 z-[100] flex justify-end">
+
+<div
+@click.away="showCart=false"
+class="w-full md:w-[450px] h-screen bg-white p-8 overflow-y-auto">
+
+<div class="flex justify-between items-center mb-8">
+
+<h2 class="text-3xl font-black">
+Keranjang Belanja
+</h2>
+
+<button
+@click="showCart=false">
+
+<i class="fa-solid fa-xmark text-2xl"></i>
+
+</button>
+
+</div>
+
+
+<template
+x-for="(item,index) in cartItems">
+
+<div class="border-b pb-6 mb-6">
+
+<h3
+class="font-bold text-xl"
+x-text="item.name">
+</h3>
+
+<p class="text-slate-500">
+
+Rp<span x-text="item.price.toLocaleString()"></span>
+
+</p>
+
+<div class="flex items-center gap-4 mt-4">
+
+<button
+@click="decrease(index)"
+class="w-10 h-10 rounded-full bg-slate-100">
+
+-
+
+</button>
+
+<span
+x-text="item.qty">
+</span>
+
+<button
+@click="increase(index)"
+class="w-10 h-10 rounded-full bg-slate-100">
+
++
+
+</button>
+
+<button
+@click="removeItem(index)"
+class="ml-auto text-red-500">
+
+Hapus
+
+</button>
+
+</div>
+
+</div>
+
+</template>
+
+
+<div class="mt-10">
+
+<h3 class="font-black text-2xl">
+
+Total :
+
+Rp<span
+x-text="totalPrice.toLocaleString()">
+</span>
+
+</h3>
+
+<div class="space-y-4 mt-6">
+
+<button
+@click="checkoutWA()"
+class="w-full py-4 rounded-full bg-[#A4FFC4] font-bold">
+
+Pesan Sekarang
+
+</button>
+
+<button
+@click="clearCart()"
+class="w-full py-4 rounded-full bg-slate-900 text-white">
+
+Kosongkan Keranjang
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<!-- ORDER MODAL -->
+<div
+x-show="showOrderModal"
+x-transition
+class="fixed inset-0 bg-black/50 z-[999] flex items-center justify-center p-5">
+
+<div
+@click.away="showOrderModal=false"
+class="bg-white w-full max-w-lg rounded-[35px] p-8">
+
+<h2 class="text-3xl font-black mb-6">
+Metode Pengambilan
+</h2>
+
+<div class="flex gap-4 mb-6">
+
+<button
+@click="pickupMethod='Rumah'"
+:class="
+pickupMethod=='Rumah'
+? 'bg-slate-900 text-white'
+: 'bg-[#A4FFC4] text-slate-900'
+"
+class="flex-1 py-4 rounded-full font-bold duration-300 shadow-lg">
+
+Ambil di Rumah
+
+</button>
+
+<button
+@click="pickupMethod='Sekolah'"
+:class="
+pickupMethod=='Sekolah'
+? 'bg-slate-900 text-white'
+: 'bg-[#A4FFC4] text-slate-900'
+"
+class="flex-1 py-4 rounded-full font-bold duration-300 shadow-lg">
+
+Ambil di Sekolah
+
+</button>
+
+</div>
+
+<template x-if="pickupMethod!=''">
+
+<div class="space-y-5">
+
+<div>
+
+<label class="font-semibold block mb-2">
+Nama Lengkap
+</label>
+
+<input
+x-model="customerName"
+placeholder="Masukan ama lengkap"
+class="w-full px-5 py-4 rounded-2xl border border-slate-200">
+
+</div>
+
+<div>
+
+<label
+class="font-semibold block mb-2"
+x-text="pickupMethod=='Rumah' ? 'Alamat Rumah' : 'Kelas'">
+</label>
+
+<!-- Alamat Rumah -->
+<input
+x-show="pickupMethod=='Rumah'"
+x-model="homeAddress"
+placeholder="Masukkan alamat rumah"
+class="w-full px-5 py-4 rounded-2xl border border-slate-200">
+
+<!-- Kelas -->
+<input
+x-show="pickupMethod=='Sekolah'"
+x-model="schoolClass"
+placeholder="Masukkan kelas"
+class="w-full px-5 py-4 rounded-2xl border border-slate-200">
+
+</div>
+
+<div class="bg-slate-50 rounded-2xl p-5">
+
+<p class="text-slate-500">
+Total Pembayaran
+</p>
+
+<p class="text-3xl font-black">
+
+Rp<span
+x-text="totalPrice.toLocaleString()">
+</span>
+
+</p>
+
+</div>
+
+<button
+@click="sendOrder()"
+class="w-full py-4 rounded-full bg-[#A4FFC4] font-bold">
+
+<i class="fa-brands fa-whatsapp mr-2"></i>
+Kirim Pesanan
+
+</button>
+
+</div>
+
+</template>
+
+</div>
+
+</div>
+</body>
+</html><!DOCTYPE html>
+<html lang="id" x-data="{ cart: 0, mobileMenu: false,}">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Viora Bracelet — Nova Wave</title>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="Nova_Wave_Logo.png">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#A4FFC4',
+        primaryDark: '#7BE8A4',
+        primaryLight: '#D8FFE7',
+        luxury: '#0F172A'
+      }
+    }
+  }
+}
+</script>
+
+  <!-- Alpine JS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      font-family: 'Inter', sans-serif;
+    }
+
+    html{
+      scroll-behavior: smooth;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+
+    .hero-glow{
+    background: radial-gradient(
+      circle at top right,
+      rgba(164,255,196,0.35),
+      transparent 40%
+  );
+}
+
+    .card-hover{
+      transition: all .35s ease;
+    }
+
+    .card-hover:hover{
+      transform: translateY(-10px);
+    }
+
+    .gradient-text{
+      background: linear-gradient(to right,#0F172A,#A4FFC4);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+  }
+
+    .shadow-luxury{
+      box-shadow: 0 25px 50px rgba(15,23,42,0.08);
+    }
+
+    body{
+    overflow-x:hidden;
+}
+
+img{
+    max-width:100%;
+    height:auto;
+}
+
+button{
+    -webkit-tap-highlight-color:transparent;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+  </style>
+</head>
+
+<body
+x-data="shop")
+class="bg-slate-50 text-slate-900 overflow-x-hidden">
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 left-0 w-full z-50">
+    <nav class="glass max-w-7xl mx-auto mt-4 rounded-full px-6 lg:px-10 py-4 shadow-xl">
+      <div class="flex items-center justify-between">
+
+        <!-- LOGO -->
+        <div class="flex items-center gap-3 md:gap-4">
+
+    <div class="w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden shadow-xl border border-slate-200">
+
+        <img
+            src="Nova Wave LOGO cropp.png"
+            class="w-full h-full object-contain">
+
+    </div>
+
+    <div>
+
+        <h1 class="font-black tracking-[0.25em] md:tracking-[0.35em] text-slate-900 text-lg md:text-2xl">
+            NOVA WAVE
+        </h1>
+
+        <p class="text-slate-500 text-[10px] sm:text-xs md:text-base leading-tight">
+    Student Company Crafting Waves of Creativity
+</p>
+    </div>
+
+</div>
+
+        <!-- MENU DESKTOP -->
+        <div class="hidden lg:flex items-center gap-10 text-sm font-medium">
+          <a href="#home" class="hover:text-primaryDark transition">Home</a>
+          <a href="#story" class="hover:text-primaryDark transition">Tentang</a>
+          <a href="#collection" class="hover:text-primaryDark transition">Collection</a>
+          <a href="#contact" class="hover:text-primaryDark transition">Contact</a>
+        </div>
+
+        <!-- ACTION -->
+        <div class="flex items-center gap-3">
+
+          <!-- CART -->
+          <button
+@click="showCart=true"
+class="relative w-12 h-12 rounded-full bg-slate-100 hover:bg-slate-200 transition flex items-center justify-center">
+
+<i class="fa-solid fa-bag-shopping text-slate-800"></i>
+
+<div
+x-show="totalItems>0"
+class="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
+
+<span x-text="totalItems"></span>
+
+</div>
+
+</button>
+
+            <div x-show="cart > 0"
+                 x-transition
+                 class="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
+              <span x-text="cart"></span>
+            </div>
+          </button>
+
+          <!-- CTA -->
+          <a href="https://wa.me/62085185212663?text=Halo%20Nova%20Wave%20👋%0A%0ASaya%20tertarik%20dengan%20produk%20Nova%20Wave.%0A%0ASaya%20ingin%20menanyakan:%0A%0A1.%20Ketersediaan%20stok%20saat%20ini%0A2.%20Varian%20yang%20tersedia%0A3.%20Harga%20terbaru%0A4.%20Informasi%20pengambilan%20produk%0A%0AMohon%20informasinya.%20Terima%20kasih%20🙏"
+   target="_blank"
+   class="hidden md:flex items-center gap-2 px-6 py-3 rounded-full bg-primary hover:bg-primaryDark transition text-white font-semibold shadow-lg shadow-primary/30">
+
+    <i class="fa-brands fa-whatsapp"></i>
+    Tanya via WA
+
+</a>
+
+        </div>
+
+      </div>
+
+      <!-- MOBILE MENU -->
+      <div x-show="mobileMenu"
+           x-transition
+           class="lg:hidden pt-6 pb-2 flex flex-col gap-4 text-center">
+
+        <a href="#home" class="hover:text-primaryDark">Home</a>
+        <a href="#story" class="hover:text-primaryDark">Tentang Kami</a>
+        <a href="#collection" class="hover:text-primaryDark">Collection</a>
+        <a href="#contact" class="hover:text-primaryDark">Contact</a>
+
+        <a href="https://wa.me/62085185212663"
+          target="_blank"
+          class="px-5 py-3 rounded-full bg-primary text-white">
+          Tanya via WA
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="hero-glow pt-40 lg:pt-52 pb-24 px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+
+      <!-- LEFT -->
+      <div>
+
+        <div class="inline-flex items-center gap-2 bg-primary/20 text-primaryDark px-5 py-2 rounded-full text-sm font-semibold mb-8">
+          <i class="fa-solid fa-wave-square"></i>
+          From Waste to Waves: Crafting Eco-Friendly Bracelets with Coconut Shells
+        </div>
+
+        <h1 class="text-4xl md:text-5xl lg:text-7xl font-black leading-tight tracking-tight mb-8">
+          <span class="gradient-text">
+            Viora Bracellet:
+          </span>
+          <br>
+          Pancarkan Energimu Lewat Sentuhan Estetika Modern Alami.
+        </h1>
+
+        <p class="text-slate-600 text-lg leading-relaxed max-w-2xl mb-10">
+          Gelang eksklusif hasil karya Student Company Nova Wave.
+          Dirancang dengan material premium alam untuk melengkapi gaya kasual maupun formal anak muda masa kini.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-5">
+
+          <a href="#collection"
+            class="px-8 py-4 rounded-full bg-primary hover:bg-primaryDark transition text-white font-bold text-center shadow-2xl shadow-primary/30">
+            Beli Sekarang
+          </a>
+
+          <a href="#story"
+            class="px-8 py-4 rounded-full border border-slate-300 hover:border-primary hover:text-primaryDark transition text-center font-semibold">
+            Lihat Detail
+          </a>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="relative"
+x-data="{
+current:0,
+
+products:[
+{
+image:'Astra Wave 1.jpeg',
+name:'Astra Wave'
+},
+{
+image:'Astra Wave 2.jpeg',
+name:'Astra Wave'
+},
+{
+image:'Sora Wave 1.jpeg',
+name:'Sora Wave'
+},
+{
+image:'Sora Wave 2.jpeg',
+name:'Sora Wave'
+},
+{
+image:'Sora Wave 3.jpeg',
+name:'Sora Wave'
+},
+{
+image:'Sora Wave 4.jpeg',
+name:'Sora Wave'
+},
+{
+image:'Lyra Wave 1.jpeg',
+name:'Lyra Wave'
+},
+{
+image:'Lyra Wave 2.jpeg',
+name:'Lyra Wave'
+},
+{
+image:'Lyra Wave 3.jpeg',
+name:'Lyra Wave'
+},
+{
+image:'Lyra Wave 4.jpeg',
+name:'Lyra Wave'
+},
+{
+image:'Kala Wave 1.jpeg',
+name:'Kala Wave'
+},
+{
+image:'Kala Wave 2.jpeg',
+name:'Kala Wave'
+},
+{
+image:'Kala Wave 3.jpeg',
+name:'Kala Wave'
+}
+],
+
+init(){
+setInterval(()=>{
+this.current=(this.current+1)%this.products.length
+},4000)
+}
+}">
+
+    <!-- Glow -->
+    <div class="absolute inset-0 bg-primary/30 blur-3xl rounded-full"></div>
+
+    <!-- Gambar -->
+    <img
+        :src="products[current].image"
+        class="relative z-10 w-full h-[350px] md:h-[500px] lg:h-[650px] object-cover rounded-[40px] shadow-luxury duration-500">
+
+    <!-- Nama Produk -->
+    <div class="absolute bottom-6 left-6 z-20 glass rounded-3xl px-6 py-5">
+
+        <p class="text-sm text-slate-500 mb-1">
+            Viora Bracelet Collection
+        </p>
+
+        <h3
+            x-text="products[current].name"
+            class="font-bold text-xl">
+        </h3>
+
+    </div>
+
+    <!-- Tombol kiri -->
+    <button
+        @click="current=(current-1+products.length)%products.length"
+        class="absolute z-20 left-5 top-1/2 -translate-y-1/2 w-10 h-10 md:w-14 md:h-14 rounded-full bg-white shadow-xl hover:scale-110 duration-300">
+
+        <i class="fa-solid fa-chevron-left"></i>
+
+    </button>
+
+    <!-- Tombol kanan -->
+    <button
+        @click="current=(current+1)%products.length"
+        class="absolute z-20 right-5 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white shadow-xl hover:scale-110 duration-300">
+
+        <i class="fa-solid fa-chevron-right"></i>
+
+    </button>
+
+</div>
+  </section>
+
+  <!-- STORY -->
+  <section id="story" class="py-20 md:py-28 px-6 md:px-10 bg-white">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="text-center mb-20">
+        <p class="text-primaryDark font-bold tracking-[0.3em] uppercase mb-4">
+          Tentang Nova Wave
+        </p>
+
+        <h2 class="text-4xl lg:text-6xl font-black mb-6">
+          Apa Itu Nova Wave?
+        </h2>
+
+        <p class="text-slate-600 max-w-3xl mx-auto text-lg">
+         NOVA berasal dari kata novus yang berarti baru, melambangkan ide segar dan inovasi.
+WAVE berarti  gelombang, yang merepresentasikan pergerakan perubahan berkelanjutan.
+
+
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+
+        <!-- LEFT -->
+        <div>
+          <h3 class="text-3xl font-black mb-6">
+            VISI & MISI
+          </h3>
+
+          <p class="text-slate-600 leading-relaxed mb-6 text-lg">
+            Menjadikan NOVA WAVE COMPANY sebagai perusahaan pelopor SMAN 24 
+            yang inovatif dan berkelanjutan dalam menciptakan produk ramah lingkungan 
+            berbasis pemanfaatan limbah lokal, serta menumbuhkan kepedulian terhadap lingkungan 
+            melalui inovasi generasi muda. <b>Yaitu, dengan:</b>
+          </p>
+          <p class="text-slate-600 leading-relaxed text-lg">
+            <b>1. Inovasi & Pengolahan Limbah:</b>
+            <br> 
+            Mengolah limbah batok kelapa menjadi produk eco-fashion fungsional bernilai jual tinggi melalui konsep upcycling dan circular economy.
+            <br><br>
+            <b>2. Solusi Lingkungan Praktis:</b>
+            <br>
+            Menciptakan aksesori ramah lingkungan yang aman, estetik, dan menjadi solusi nyata untuk mengurangi polusi udara.
+            <br><br>
+            <b>3. Pemberdayaan Generasi Muda:</b>
+            <br>
+            Membangun wadah kewirausahaan yang kreatif, kolaboratif, dan siap bersaing bagi generasi muda.
+          </p>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="grid md:grid-cols-3 gap-6">
+
+          <div class="card-hover bg-slate-50 rounded-[30px] p-8 border border-slate-100 shadow-sm">
+            <div class="w-16 h-16 rounded-2xl bg-primary text-white flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-gem"></i>
+            </div>
+
+            <h4 class="font-bold text-xl mb-3">
+              Natural Material
+            </h4>
+
+            <p class="text-slate-600">
+              Memadukan keindahan material alam premium untuk tampilan yang elegan dan berkelas.
+            </p>
+          </div>
+
+          <div class="card-hover bg-slate-50 rounded-[30px] p-8 border border-slate-100 shadow-sm">
+            <div class="w-16 h-16 rounded-2xl bg-primary text-white flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-earth-asia"></i>
+            </div>
+
+            <h4 class="font-bold text-xl mb-3">
+              Adjustable Fit
+            </h4>
+
+            <p class="text-slate-600">
+              Desain tali praktis yang fleksibel dan pas untuk berbagai ukuran pergelangan tangan.
+            </p>
+          </div>
+
+          <div class="card-hover bg-slate-50 rounded-[30px] p-8 border border-slate-100 shadow-sm">
+            <div class="w-16 h-16 rounded-2xl bg-primary text-white flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-lightbulb"></i>
+            </div>
+
+            <h4 class="font-bold text-xl mb-3">
+              Hand-Braided
+            </h4>
+
+            <p class="text-slate-600">
+              Dibuat eksklusif dengan jalinan tangan yang teliti, kuat, dan penuh cerita.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COLLECTION -->
+  <section id="collection" class="py-20 md:py-28 px-6 md:px-10 bg-slate-50">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="text-center mb-20">
+        <p class="text-primaryDark font-bold tracking-[0.3em] uppercase mb-4">
+          Collection
+        </p>
+
+        <h2 class="text-4xl lg:text-6xl font-black mb-6">
+          Pilih Varian Viora Kamu
+        </h2>
+
+        <p class="text-slate-600 text-lg max-w-2xl mx-auto">
+          Koleksi eksklusif dengan karakter berbeda untuk setiap gaya modern.
+        </p>
+
+    <br>
+        <p>
+            Mohon Pastikan untuk memeriksa ketersediaan stok sebelum melakukan pemesanan. Stok dapat berubah sewaktu-waktu, dan kami tidak dapat menjamin ketersediaan produk pada saat pemesanan.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <!-- CARD 1 -->
+        <div class="group bg-white rounded-[35px] overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 duration-300">
+
+     <!-- IMAGE -->
+    <div class="relative overflow-hidden">
+
+        <img src="Kala Wave 1.jpeg"
+             class="w-full h-72 object-cover group-hover:scale-105 duration-500">
+
+        <!-- Badge -->
+        <div class="absolute top-5 left-5">
+            <span class="bg-[#A4FFC4] text-slate-900 px-4 py-2 rounded-full text-xs font-bold">
+                BEST SELLER
+            </span>
+        </div>
+
+        <!-- Wishlist -->
+        <button class="absolute top-5 right-5 w-11 h-11 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-red-50">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="p-7">
+
+        <div class="flex items-center gap-1 mb-3 text-yellow-400">
+
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+
+            <span class="text-slate-500 text-sm ml-2">
+                (4.9)
+            </span>
+
+        </div>
+
+        <h3 class="text-2xl font-black mb-2">
+            Kala Wave 1
+        </h3>
+
+        <p class="text-slate-500 mb-6 leading-relaxed">
+            Gelang bernuansa cokelat hangat dengan liontin pita yang manis.
+        </p>
+
+        <!-- Harga -->
+        <div class="flex items-center gap-3 mb-7">
+
+            <span class="text-3xl font-black">
+                Rp25.000
+            </span>
+
+            <span class="text-slate-400 line-through">
+                Rp30.000
+            </span>
+
+        </div>
+
+        <!-- Button -->
+        <div class="flex gap-3">
+
+            <button
+                @click="addToCart('Kala Wave 1',25000)"
+                class="flex-1 py-4 rounded-full bg-slate-900 text-white font-bold hover:bg-slate-800 duration-300">
+
+                + Keranjang
+
+            </button>
+
+            <button
+@click="
+addToCart('Kala Wave 1',25000);
+showCart=true;
+"
+class="flex-1 py-4 rounded-full bg-[#A4FFC4] text-slate-900 font-bold text-center hover:bg-[#8EF0B2] duration-300">
+
+Pesan
+
+</button>
+
+        </div>
+
+    </div>
+
+</div>
+
+        <!-- CARD 2 -->
+        <div class="group bg-white rounded-[35px] overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <!-- IMAGE -->
+    <div class="relative overflow-hidden">
+
+        <img src="Lyra Wave 1.jpeg"
+             class="w-full h-72 object-cover group-hover:scale-105 duration-500">
+
+        <!-- Badge -->
+        <div class="absolute top-5 left-5">
+            <span class="bg-[#A4FFC4] text-slate-900 px-4 py-2 rounded-full text-xs font-bold">
+                BEST SELLER
+            </span>
+        </div>
+
+        <!-- Wishlist -->
+        <button class="absolute top-5 right-5 w-11 h-11 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-red-50">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="p-7">
+
+        <div class="flex items-center gap-1 mb-3 text-yellow-400">
+
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+
+            <span class="text-slate-500 text-sm ml-2">
+                (4.9)
+            </span>
+
+        </div>
+
+        <h3 class="text-2xl font-black mb-2">
+            Lyra Wave 1
+        </h3>
+
+        <p class="text-slate-500 mb-6 leading-relaxed">
+            Gelang tali serut praktis dengan warna biru toska cerah dan aksen hati yang manis.
+        </p>
+
+        <!-- Harga -->
+        <div class="flex items-center gap-3 mb-7">
+
+            <span class="text-3xl font-black">
+                Rp25.000
+            </span>
+
+            <span class="text-slate-400 line-through">
+                Rp30.000
+            </span>
+
+        </div>
+
+        <!-- Button -->
+        <div class="flex gap-3">
+
+            <button
+                @click="addToCart('Lyra Wave 1',25000)"
+                class="flex-1 py-4 rounded-full bg-slate-900 text-white font-bold hover:bg-slate-800 duration-300">
+
+                + Keranjang
+
+            </button>
+
+            <button
+@click="
+addToCart('Lyra Wave 1',25000);
+showCart=true;
+"
+class="flex-1 py-4 rounded-full bg-[#A4FFC4] text-slate-900 font-bold text-center hover:bg-[#8EF0B2] duration-300">
+
+Pesan
+
+</button>
+
+        </div>
+
+    </div>
+
+</div>
+        <!-- CARD 3 -->
+        <div class="group bg-white rounded-[35px] overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <!-- IMAGE -->
+    <div class="relative overflow-hidden">
+
+        <img src="Sora Wave 3.jpeg"
+             class="w-full h-72 object-cover group-hover:scale-105 duration-500">
+
+        <!-- Badge -->
+        <div class="absolute top-5 left-5">
+            <span class="bg-[#A4FFC4] text-slate-900 px-4 py-2 rounded-full text-xs font-bold">
+                BEST SELLER
+            </span>
+        </div>
+
+        <!-- Wishlist -->
+        <button class="absolute top-5 right-5 w-11 h-11 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-red-50">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="p-7">
+
+        <div class="flex items-center gap-1 mb-3 text-yellow-400">
+
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+
+            <span class="text-slate-500 text-sm ml-2">
+                (4.9)
+            </span>
+
+        </div>
+
+        <h3 class="text-2xl font-black mb-2">
+            Sora Wave 3
+        </h3>
+
+        <p class="text-slate-500 mb-6 leading-relaxed">
+            Gelang material alam bernuansa bumi dengan kombinasi warna warni yang estetik.
+        </p>
+
+        <!-- Harga -->
+        <div class="flex items-center gap-3 mb-7">
+
+            <span class="text-3xl font-black">
+                Rp25.000
+            </span>
+
+            <span class="text-slate-400 line-through">
+                Rp30.000
+            </span>
+
+        </div>
+
+        <!-- Button -->
+        <div class="flex gap-3">
+
+            <button
+                @click="addToCart('Sora Wave 3',25000)"
+                class="flex-1 py-4 rounded-full bg-slate-900 text-white font-bold hover:bg-slate-800 duration-300">
+
+                + Keranjang
+
+            </button>
+
+            <button
+@click="
+addToCart('Sora Wave 3',25000);
+showCart=true;
+"
+class="flex-1 py-4 rounded-full bg-[#A4FFC4] text-slate-900 font-bold text-center hover:bg-[#8EF0B2] duration-300">
+
+Pesan
+
+</button>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="group bg-white rounded-[35px] overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <!-- IMAGE -->
+    <div class="relative overflow-hidden">
+
+        <img src="Lyra Wave 4.jpeg"
+             class="w-full h-72 object-cover group-hover:scale-105 duration-500">
+
+        <!-- Badge -->
+        <div class="absolute top-5 left-5">
+            <span class="bg-[#A4FFC4] text-slate-900 px-4 py-2 rounded-full text-xs font-bold">
+                GOOD CHOICE
+            </span>
+        </div>
+
+        <!-- Wishlist -->
+        <button class="absolute top-5 right-5 w-11 h-11 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-red-50">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="p-7">
+
+        <div class="flex items-center gap-1 mb-3 text-yellow-400">
+
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+
+            <span class="text-slate-500 text-sm ml-2">
+                (4.9)
+            </span>
+
+        </div>
+
+        <h3 class="text-2xl font-black mb-2">
+            Lyra Wave 4
+        </h3>
+
+        <p class="text-slate-500 mb-6 leading-relaxed">
+            Gelang tali serut praktis dengan paduan manik hitam-hijau dan detail manik biru laut.
+        </p>
+
+        <!-- Harga -->
+        <div class="flex items-center gap-3 mb-7">
+
+            <span class="text-3xl font-black">
+                Rp25.000
+            </span>
+
+            <span class="text-slate-400 line-through">
+                Rp30.000
+            </span>
+
+        </div>
+
+        <!-- Button -->
+        <div class="flex gap-3">
+
+            <button
+                @click="addToCart('Lyra Wave 4',25000)"
+                class="flex-1 py-4 rounded-full bg-slate-900 text-white font-bold hover:bg-slate-800 duration-300">
+
+                + Keranjang
+
+            </button>
+
+            <button
+@click="
+addToCart('Lyra Wave 4',25000);
+showCart=true;
+"
+class="flex-1 py-4 rounded-full bg-[#A4FFC4] text-slate-900 font-bold text-center hover:bg-[#8EF0B2] duration-300">
+
+Pesan
+
+</button>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="group bg-white rounded-[35px] overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <!-- IMAGE -->
+    <div class="relative overflow-hidden">
+
+        <img src="Sora Wave 4.jpeg"
+             class="w-full h-72 object-cover group-hover:scale-105 duration-500">
+
+        <!-- Badge -->
+        <div class="absolute top-5 left-5">
+            <span class="bg-[#A4FFC4] text-slate-900 px-4 py-2 rounded-full text-xs font-bold">
+                GOOD CHOICE
+            </span>
+        </div>
+
+        <!-- Wishlist -->
+        <button class="absolute top-5 right-5 w-11 h-11 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-red-50">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="p-7">
+
+        <div class="flex items-center gap-1 mb-3 text-yellow-400">
+
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+
+            <span class="text-slate-500 text-sm ml-2">
+                (4.9)
+            </span>
+
+        </div>
+
+        <h3 class="text-2xl font-black mb-2">
+            Sora Wave 4
+        </h3>
+
+        <p class="text-slate-500 mb-6 leading-relaxed">
+            Gelang material alam dengan dominasi warna tanah dan batuan pantai yang kokoh.
+        </p>
+
+        <!-- Harga -->
+        <div class="flex items-center gap-3 mb-7">
+
+            <span class="text-3xl font-black">
+                Rp25.000
+            </span>
+
+            <span class="text-slate-400 line-through">
+                Rp30.000
+            </span>
+
+        </div>
+
+        <!-- Button -->
+        <div class="flex gap-3">
+
+            <button
+                @click="addToCart('Sora Wave 4',25000)"
+                class="flex-1 py-4 rounded-full bg-slate-900 text-white font-bold hover:bg-slate-800 duration-300">
+
+                + Keranjang
+
+            </button>
+
+            <button
+@click="
+addToCart('Sora Wave 4',25000);
+showCart=true;
+"
+class="flex-1 py-4 rounded-full bg-[#A4FFC4] text-slate-900 font-bold text-center hover:bg-[#8EF0B2] duration-300">
+
+Pesan
+
+</button>
+
+        </div>
+
+    </div>
+
+</div>
+        <!-- CARD 4 -->
+        <div class="group bg-white rounded-[35px] overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <!-- IMAGE -->
+    <div class="relative overflow-hidden">
+
+        <img src="Astra Wave 1.jpeg"
+             class="w-full h-72 object-cover group-hover:scale-105 duration-500">
+
+        <!-- Wishlist -->
+        <button class="absolute top-5 right-5 w-11 h-11 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-red-50">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="p-7">
+
+        <div class="flex items-center gap-1 mb-3 text-yellow-400">
+
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+
+            <span class="text-slate-500 text-sm ml-2">
+                (4.9)
+            </span>
+
+        </div>
+
+        <h3 class="text-2xl font-black mb-2">
+            Astra Wave 1
+        </h3>
+
+        <p class="text-slate-500 mb-6 leading-relaxed">
+            Gelang material alam dengan detail kristal transparan dan aksen bintang perak.
+        </p>
+
+        <!-- Harga -->
+        <div class="flex items-center gap-3 mb-7">
+
+            <span class="text-3xl font-black">
+                Rp25.000
+            </span>
+
+            <span class="text-slate-400 line-through">
+                Rp30.000
+            </span>
+
+        </div>
+
+        <!-- Button -->
+        <div class="flex gap-3">
+
+            <button
+            @click="addToCart('Astra Wave 1',25000)"
+            class="flex-1 py-4 rounded-full bg-slate-900 text-white font-bold hover:bg-slate-800 duration-300">
+
+            + Keranjang
+
+            </button>
+
+            <button
+@click="
+addToCart('Astra Wave 1',25000);
+showCart=true;
+"
+class="flex-1 py-4 rounded-full bg-[#A4FFC4] text-slate-900 font-bold text-center hover:bg-[#8EF0B2] duration-300">
+
+Pesan
+
+</button>
+
+        </div>
+
+    </div>
+
+</div>
+
+        <!-- CARD 2 -->
+        <div class="group bg-white rounded-[35px] overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <!-- IMAGE -->
+    <div class="relative overflow-hidden">
+
+        <img src="Astra Wave 2.jpeg"
+             class="w-full h-72 object-cover group-hover:scale-105 duration-500">
+
+        <!-- Wishlist -->
+        <button class="absolute top-5 right-5 w-11 h-11 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-red-50">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="p-7">
+
+        <div class="flex items-center gap-1 mb-3 text-yellow-400">
+
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+
+            <span class="text-slate-500 text-sm ml-2">
+                (4.9)
+            </span>
+
+        </div>
+
+        <h3 class="text-2xl font-black mb-2">
+            Astra Wave 2
+        </h3>
+
+        <p class="text-slate-500 mb-6 leading-relaxed">
+            Gelang material alam dengan detail kristal transparan dan sentuhan biru segar.
+        </p>
+
+        <!-- Harga -->
+        <div class="flex items-center gap-3 mb-7">
+
+            <span class="text-3xl font-black">
+                Rp25.000
+            </span>
+
+            <span class="text-slate-400 line-through">
+                Rp30.000
+            </span>
+
+        </div>
+
+        <!-- Button -->
+        <div class="flex gap-3">
+
+            <button
+                @click="addToCart('Astra Wave 2',25000)"
+                class="flex-1 py-4 rounded-full bg-slate-900 text-white font-bold hover:bg-slate-800 duration-300">
+
+                + Keranjang
+
+            </button>
+
+            <button
+@click="
+addToCart('Astra Wave 2',25000);
+showCart=true;
+"
+class="flex-1 py-4 rounded-full bg-[#A4FFC4] text-slate-900 font-bold text-center hover:bg-[#8EF0B2] duration-300">
+
+Pesan
+
+</button>
+
+        </div>
+
+    </div>
+
+</div>
+        <!-- CARD 3 -->
+        <div class="group bg-white rounded-[35px] overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <!-- IMAGE -->
+    <div class="relative overflow-hidden">
+
+        <img src="Sora Wave 1.jpeg"
+             class="w-full h-72 object-cover group-hover:scale-105 duration-500">
+
+        <!-- Wishlist -->
+        <button class="absolute top-5 right-5 w-11 h-11 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-red-50">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="p-7">
+
+        <div class="flex items-center gap-1 mb-3 text-yellow-400">
+
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+
+            <span class="text-slate-500 text-sm ml-2">
+                (4.9)
+            </span>
+
+        </div>
+
+        <h3 class="text-2xl font-black mb-2">
+            Sora Wave 1
+        </h3>
+
+        <p class="text-slate-500 mb-6 leading-relaxed">
+            Gelang material alam dengan perpaduan warna biru langit dan hijau laut yang tenang.
+        </p>
+
+        <!-- Harga -->
+        <div class="flex items-center gap-3 mb-7">
+
+            <span class="text-3xl font-black">
+                Rp25.000
+            </span>
+
+            <span class="text-slate-400 line-through">
+                Rp30.000
+            </span>
+
+        </div>
+
+        <!-- Button -->
+        <div class="flex gap-3">
+
+            <button
+                @click="addToCart('Sora Wave 1',25000)"
+                class="flex-1 py-4 rounded-full bg-slate-900 text-white font-bold hover:bg-slate-800 duration-300">
+
+                + Keranjang
+
+            </button>
+
+            <button
+@click="
+addToCart('Sora Wave 1',25000);
+showCart=true;
+"
+class="flex-1 py-4 rounded-full bg-[#A4FFC4] text-slate-900 font-bold text-center hover:bg-[#8EF0B2] duration-300">
+
+Pesan
+
+</button>
+
+        </div>
+
+    </div>
+
+</div>
+        <!-- CARD 4 -->
+        <div class="group bg-white rounded-[35px] overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <!-- IMAGE -->
+    <div class="relative overflow-hidden">
+
+        <img src="Sora Wave 2.jpeg"
+             class="w-full h-72 object-cover group-hover:scale-105 duration-500">
+
+        <!-- Wishlist -->
+        <button class="absolute top-5 right-5 w-11 h-11 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-red-50">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="p-7">
+
+        <div class="flex items-center gap-1 mb-3 text-yellow-400">
+
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+
+            <span class="text-slate-500 text-sm ml-2">
+                (4.9)
+            </span>
+
+        </div>
+
+        <h3 class="text-2xl font-black mb-2">
+            Sora Wave 2
+        </h3>
+
+        <p class="text-slate-500 mb-6 leading-relaxed">
+            Gelang material alam dengan kombinasi warna pasir pantai dan toska yang hangat.
+        </p>
+
+        <!-- Harga -->
+        <div class="flex items-center gap-3 mb-7">
+
+            <span class="text-3xl font-black">
+                Rp25.000
+            </span>
+
+            <span class="text-slate-400 line-through">
+                Rp30.000
+            </span>
+
+        </div>
+
+        <!-- Button -->
+        <div class="flex gap-3">
+
+            <button
+                @click="addToCart('Sora Wave 2',25000)"
+                class="flex-1 py-4 rounded-full bg-slate-900 text-white font-bold hover:bg-slate-800 duration-300">
+
+                + Keranjang
+
+            </button>
+
+            <button
+@click="
+addToCart('Sora Wave 2',25000);
+showCart=true;
+"
+class="flex-1 py-4 rounded-full bg-[#A4FFC4] text-slate-900 font-bold text-center hover:bg-[#8EF0B2] duration-300">
+
+Pesan
+
+</button>
+
+        </div>
+
+    </div>
+
+</div>
+                <!-- CARD 8 -->
+                 <div class="group bg-white rounded-[35px] overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <!-- IMAGE -->
+    <div class="relative overflow-hidden">
+
+        <img src="Lyra Wave 2.jpeg"
+             class="w-full h-72 object-cover group-hover:scale-105 duration-500">
+
+        <!-- Wishlist -->
+        <button class="absolute top-5 right-5 w-11 h-11 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-red-50">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="p-7">
+
+        <div class="flex items-center gap-1 mb-3 text-yellow-400">
+
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+
+            <span class="text-slate-500 text-sm ml-2">
+                (4.9)
+            </span>
+
+        </div>
+
+        <h3 class="text-2xl font-black mb-2">
+            Lyra Wave 2
+        </h3>
+
+        <p class="text-slate-500 mb-6 leading-relaxed">
+            Gelang tali serut praktis dengan dominasi warna hitam solid yang tegas dan elegan.
+        </p>
+
+        <!-- Harga -->
+        <div class="flex items-center gap-3 mb-7">
+
+            <span class="text-3xl font-black">
+                Rp25.000
+            </span>
+
+            <span class="text-slate-400 line-through">
+                Rp30.000
+            </span>
+
+        </div>
+
+        <!-- Button -->
+        <div class="flex gap-3">
+
+            <button
+                @click="addToCart('Lyra Wave 2',25000)"
+                class="flex-1 py-4 rounded-full bg-slate-900 text-white font-bold hover:bg-slate-800 duration-300">
+
+                + Keranjang
+
+            </button>
+
+            <button
+@click="
+addToCart('Lyra Wave 2',25000);
+showCart=true;
+"
+class="flex-1 py-4 rounded-full bg-[#A4FFC4] text-slate-900 font-bold text-center hover:bg-[#8EF0B2] duration-300">
+
+Pesan
+
+</button>
+
+        </div>
+
+    </div>
+
+</div>
+            <!-- CARD 9 -->
+            <div class="group bg-white rounded-[35px] overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <!-- IMAGE -->
+    <div class="relative overflow-hidden">
+
+        <img src="Lyra Wave 3.jpeg"
+             class="w-full h-72 object-cover group-hover:scale-105 duration-500">
+
+        <!-- Wishlist -->
+        <button class="absolute top-5 right-5 w-11 h-11 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-red-50">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="p-7">
+
+        <div class="flex items-center gap-1 mb-3 text-yellow-400">
+
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+
+            <span class="text-slate-500 text-sm ml-2">
+                (4.9)
+            </span>
+
+        </div>
+
+        <h3 class="text-2xl font-black mb-2">
+            Lyra Wave 3
+        </h3>
+
+        <p class="text-slate-500 mb-6 leading-relaxed">
+            Gelang tali serut praktis dengan kombinasi warna hijau sage dan hitam yang estetik.
+        </p>
+
+        <!-- Harga -->
+        <div class="flex items-center gap-3 mb-7">
+
+            <span class="text-3xl font-black">
+                Rp25.000
+            </span>
+
+            <span class="text-slate-400 line-through">
+                Rp30.000
+            </span>
+
+        </div>
+
+        <!-- Button -->
+        <div class="flex gap-3">
+
+            <button
+                @click="addToCart('Lyra Wave 3',25000)"
+                class="flex-1 py-4 rounded-full bg-slate-900 text-white font-bold hover:bg-slate-800 duration-300">
+
+                + Keranjang
+
+            </button>
+
+            <button
+@click="
+addToCart('Lyra Wave 3',25000);
+showCart=true;
+"
+class="flex-1 py-4 rounded-full bg-[#A4FFC4] text-slate-900 font-bold text-center hover:bg-[#8EF0B2] duration-300">
+
+Pesan
+
+</button>
+
+        </div>
+
+    </div>
+
+</div>
+            <div class="group bg-white rounded-[35px] overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <!-- IMAGE -->
+    <div class="relative overflow-hidden">
+
+        <img src="Kala Wave 2.jpeg"
+             class="w-full h-72 object-cover group-hover:scale-105 duration-500">
+
+        <!-- Wishlist -->
+        <button class="absolute top-5 right-5 w-11 h-11 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-red-50">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="p-7">
+
+        <div class="flex items-center gap-1 mb-3 text-yellow-400">
+
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+
+            <span class="text-slate-500 text-sm ml-2">
+                (4.9)
+            </span>
+
+        </div>
+
+        <h3 class="text-2xl font-black mb-2">
+            Kala Wave 2
+        </h3>
+
+        <p class="text-slate-500 mb-6 leading-relaxed">
+            Gelang bernuansa biru-toska segar dengan liontin daun perak.
+        </p>
+
+        <!-- Harga -->
+        <div class="flex items-center gap-3 mb-7">
+
+            <span class="text-3xl font-black">
+                Rp25.000
+            </span>
+
+            <span class="text-slate-400 line-through">
+                Rp30.000
+            </span>
+
+        </div>
+
+        <!-- Button -->
+        <div class="flex gap-3">
+
+            <button
+                @click="addToCart('Kala Wave 2',25000)"
+                class="flex-1 py-4 rounded-full bg-slate-900 text-white font-bold hover:bg-slate-800 duration-300">
+
+                + Keranjang
+
+            </button>
+
+            <button
+@click="
+addToCart('Kala Wave 2',25000);
+showCart=true;
+"
+class="flex-1 py-4 rounded-full bg-[#A4FFC4] text-slate-900 font-bold text-center hover:bg-[#8EF0B2] duration-300">
+
+Pesan
+
+</button>
+
+        </div>
+
+    </div>
+
+</div>
+            <div class="group bg-white rounded-[35px] overflow-hidden shadow-xl border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <!-- IMAGE -->
+    <div class="relative overflow-hidden">
+
+        <img src="Kala Wave 3.jpeg"
+             class="w-full h-72 object-cover group-hover:scale-105 duration-500">
+
+        <!-- Wishlist -->
+        <button class="absolute top-5 right-5 w-11 h-11 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-red-50">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="p-7">
+
+        <div class="flex items-center gap-1 mb-3 text-yellow-400">
+
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+
+            <span class="text-slate-500 text-sm ml-2">
+                (4.9)
+            </span>
+
+        </div>
+
+        <h3 class="text-2xl font-black mb-2">
+            Kala Wave 3
+        </h3>
+
+        <p class="text-slate-500 mb-6 leading-relaxed">
+            Gelang bernuansa hitam solid eksklusif dengan detail manik perak.
+        </p>
+
+        <!-- Harga -->
+        <div class="flex items-center gap-3 mb-7">
+
+            <span class="text-3xl font-black">
+                Rp25.000
+            </span>
+
+            <span class="text-slate-400 line-through">
+                Rp30.000
+            </span>
+
+        </div>
+
+        <!-- Button -->
+        <div class="flex gap-3">
+
+            <button
+                @click="addToCart('Kala Wave 3',25000)"
+                class="flex-1 py-4 rounded-full bg-slate-900 text-white font-bold hover:bg-slate-800 duration-300">
+
+                + Keranjang
+
+            </button>
+
+            <button
+@click="
+addToCart('Kala Wave 3',25000);
+showCart=true;
+"
+class="flex-1 py-4 rounded-full bg-[#A4FFC4] text-slate-900 font-bold text-center hover:bg-[#8EF0B2] duration-300">
+
+Pesan
+
+</button>
+
+        </div>
+
+    </div>
+
+</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="py-20 md:py-28 px-6 md:px-10 bg-white">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="text-center mb-20">
+
+        <p class="text-primaryDark font-bold tracking-[0.3em] uppercase mb-4">
+          Our Team
+        </p>
+
+        <h2 class="text-4xl lg:text-6xl font-black mb-6">
+          Tim Kreatif Belakang Layar
+        </h2>
+
+        <p class="text-slate-600 text-lg max-w-2xl mx-auto">
+          Student Company Nova Wave dibangun oleh generasi muda kreatif dengan semangat inovasi dan kolaborasi.
+        </p>
+
+      </div>
+
+        <!-- MEMBER -->
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <div class="bg-white rounded-[30px] shadow-xl p-8 text-center border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <img src="WhatsApp Image 2026-05-29 at 14.56.46.jpeg"
+         class="w-36 h-36 rounded-full object-cover mx-auto mb-6">
+
+    <h3 class="font-black text-2xl mb-2">
+        President Director 
+    </h3>
+
+    <p class="text-primaryDark font-medium leading-relaxed">
+        Dzikra Meilani Putri
+    </p>
+
+</div>
+
+  <div class="bg-white rounded-[30px] shadow-xl p-8 text-center border border-slate-100 hover:-translate-y-2 duration-300">
+    
+    <img src="WhatsApp Image 2026-05-29 at 14.57.51.jpeg"
+         class="w-36 h-36 rounded-full object-cover mx-auto mb-6">
+
+    <h3 class="font-black text-2xl mb-2">
+        CORPORATE
+        Secretary 
+    </h3>
+
+    <p class="text-primaryDark font-medium leading-relaxed">
+        Sentania Kristin siahaan
+    </p>
+
+</div>
+
+  <div class="bg-white rounded-[30px] shadow-xl p-8 text-center border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <img src="WhatsApp Image 2026-05-29 at 14.58.51.jpeg"
+         class="w-36 h-36 rounded-full object-cover mx-auto mb-6">
+
+    <h3 class="font-black text-2xl mb-2">
+        Director Production 
+    </h3>
+
+    <p class="text-primaryDark font-medium leading-relaxed">
+        Rana Athaya
+    </p>
+
+</div>
+
+  <div class="bg-white rounded-[30px] shadow-xl p-8 text-center border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <img src="WhatsApp Image 2026-05-29 at 14.59.19.jpeg"
+         class="w-36 h-36 rounded-full object-cover mx-auto mb-6">
+
+    <h3 class="font-black text-2xl mb-2">
+        Director of Marketing
+    </h3>
+
+    <p class="text-primaryDark font-medium leading-relaxed">
+        Fathan Fathahillah Alhudri
+    </p>
+
+</div>
+
+  <div class="bg-white rounded-[30px] shadow-xl p-8 text-center border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <img src="WhatsApp Image 2026-05-29 at 15.00.09.jpeg"
+         class="w-36 h-36 rounded-full object-cover mx-auto mb-6">
+
+    <h3 class="font-black text-2xl mb-2">
+        Director of Sales
+    </h3>
+
+    <p class="text-primaryDark font-medium leading-relaxed">
+        Lisma Fatima Tuzzahra
+    </p>
+
+</div>
+
+  <div class="bg-white rounded-[30px] shadow-xl p-8 text-center border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <img src="WhatsApp Image 2026-05-29 at 15.00.47.jpeg"
+         class="w-36 h-36 rounded-full object-cover mx-auto mb-6">
+
+    <h3 class="font-black text-2xl mb-2">
+        Director of PR
+    </h3>
+
+    <p class="text-primaryDark font-medium leading-relaxed">
+        Keysannia Jasmine Mecca
+    </p>
+
+</div>
+
+  <div class="bg-white rounded-[30px] shadow-xl p-8 text-center border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <img src="WhatsApp Image 2026-05-29 at 15.02.09.jpeg"
+         class="w-36 h-36 rounded-full object-cover mx-auto mb-6">
+
+    <h3 class="font-black text-2xl mb-2">
+        Director of Finance
+    </h3>
+
+    <p class="text-primaryDark font-medium leading-relaxed">
+        M. Rai Ardana
+    </p>
+
+</div>
+
+  <div class="bg-white rounded-[30px] shadow-xl p-8 text-center border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <img src="WhatsApp Image 2026-05-29 at 15.48.05.jpeg"
+         class="w-36 h-36 rounded-full object-cover mx-auto mb-6">
+
+    <h3 class="font-black text-2xl mb-2">
+        Director of HRD
+    </h3>
+
+    <p class="text-primaryDark font-medium leading-relaxed">
+        Qalesya Haziqah El Hayat
+    </p>
+
+</div>
+
+  <div class="bg-white rounded-[30px] shadow-xl p-8 text-center border border-slate-100 hover:-translate-y-2 duration-300">
+
+    <img src="Allen.jpeg"
+         class="w-36 h-36 rounded-full object-cover mx-auto mb-6">
+
+    <h3 class="font-black text-2xl mb-2">
+        WEBSITE DEVELOPER
+    </h3>
+
+    <p class="text-primaryDark font-medium leading-relaxed">
+        Alan
+    </p>
+
+</div>
+
+</div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact" class="bg-[#07111B]" text-white pt-24 pb-10 px-6">
+
+    <div class="max-w-7xl mx-auto">
+
+      <div class="grid lg:grid-cols-3 gap-16 mb-16">
+
+        <!-- BRAND -->
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+
+            <div class="w-14 h-14 rounded-full bg-primary flex items-center justify-center font-black">
+                <img src="Nova_Wave_LOGO__White.png" alt="Logo" class="w-14 h-14 rounded-full bg-primary flex items-center justify-center font-black">
+            </div>
+
+            <div>
+              <h3 class="font-black tracking-[0.3em]">
+                NOVA WAVE
+              </h3>
+            </div>
+
+          </div>
+
+          <p class="text-slate-300 leading-relaxed">
+            Student Company  asal Indonesia dari SMAN 24 BANDUNG. dengan semangat inovasi, kreativitas, dan desain premium dari bahan eco-friendly yang mendukung kesehatan bumi.
+          </p>
+        </div>
+
+        <!-- CONTACT -->
+        <div>
+          <h3 class="font-black text-2xl mb-6">
+            Kontak
+          </h3>
+
+          <div class="space-y-4 text-slate-300">
+
+            <div class="flex items-start gap-4">
+              <i class="fa-solid fa-location-dot text-primary mt-1"></i>
+
+              <p>
+                Jl. A.H. Nasution No. 27, Pasir Endah, Kec. Ujung Berung, Kota Bandung, Jawa Barat 40619, Indonesia
+              </p>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <i class="fa-solid fa-envelope text-primary"></i>
+
+              <p>
+                scnovawave@gmail.com
+              </p>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <i class="fa-solid fa-phone text-primary"></i>
+
+              <p>
+                +62 851-8521-2663
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SOCIAL -->
+        <div>
+          <h3 class="font-black text-2xl mb-6">
+            Follow Us
+          </h3>
+
+          <div class="flex gap-4">
+
+            <a href="https://www.instagram.com/novawave.sc/"
+               class="w-14 h-14 rounded-full bg-white/10 hover:bg-primary transition flex items-center justify-center text-xl">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+
+            <a href="https://www.tiktok.com/@novawave.sc"
+               class="w-14 h-14 rounded-full bg-white/10 hover:bg-primary transition flex items-center justify-center text-xl">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+
+            <a href="https://wa.me/62085185212663"
+               class="w-14 h-14 rounded-full bg-white/10 hover:bg-primary transition flex items-center justify-center text-xl">
+              <i class="fa-brands fa-whatsapp"></i>
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="border-t border-white/10 pt-8 flex flex-col lg:flex-row gap-4 items-center justify-between">
+
+        <p class="text-slate-400 text-center lg:text-left">
+          © 2026 Nova Wave. All Rights Reserved. Web Crafted by Alen
+        </p>
+
+        <div class="flex gap-6 text-slate-400 text-sm">
+            <a href="privacy.html" class="hover:text-primary transition">
+                Privacy Policy
+            </a>
+
+            <a href="terms.html" class="hover:text-primary transition">
+                Terms
+            </a>
+
+            <a href="support.html" class="hover:text-primary transition">
+                Support
+            </a>
         </div>
 
       </div>
