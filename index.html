@@ -16,7 +16,7 @@
 
   gtag('config', 'G-P7N2X83HY9');
 </script>
-  
+
   <link rel="icon" type="image/png" sizes="32x32" href="Nova_Wave_Logo.png">
 
   <!-- Tailwind CSS -->
@@ -145,9 +145,9 @@ class="bg-slate-50 text-slate-900 overflow-x-hidden">
         <div class="hidden lg:flex items-center gap-10 text-sm font-medium">
           <a href="#home" class="hover:text-primaryDark transition">Home</a>
           <a href="#story" class="hover:text-primaryDark transition">Tentang</a>
-          <a href="#collection" class="hover:text-primaryDark transition">Collection</a>
-          <a href="#team" class="hover:text-primaryDark">Team</a>
-          <a href="#contact" class="hover:text-primaryDark transition">Contact</a>
+          <a href="#collection" class="hover:text-primaryDark transition">Viora</a>
+          <a href="#finance" class="hover:text-primaryDark transition">Finance</a>
+          <a href="#team" class="hover:text-primaryDark transition">Team</a>
         </div>
 
         <!-- ACTION -->
@@ -159,7 +159,7 @@ class="bg-slate-50 text-slate-900 overflow-x-hidden">
      class="flex lg:hidden items-center justify-center w-12 h-12 rounded-full bg-primary text-white shadow-lg">
 
       <i class="fa-brands fa-whatsapp"></i>
-    
+    Tanya via WA
   </a>
 
   <!-- CART -->
@@ -209,9 +209,9 @@ class="bg-slate-50 text-slate-900 overflow-x-hidden">
 
         <a href="#home" class="hover:text-primaryDark">Home</a>
         <a href="#story" class="hover:text-primaryDark">Tentang Kami</a>
-        <a href="#collection" class="hover:text-primaryDark">Collection</a>
+        <a href="#collection" class="hover:text-primaryDark">Viora</a>
+        <a href="#finance" class="hover:text-primaryDark">Finance</a>
         <a href="#team" class="hover:text-primaryDark">Team</a>
-        <a href="#contact" class="hover:text-primaryDark">Contact</a>
 
         <a href="https://wa.me/62085185212663?text=Halo%20Nova%20Wave%20👋%0A%0ASaya%20tertarik%20dengan%20koleksi%20gelang%20Nova%20Wave.%0A%0AMohon%20informasi%20mengenai:%0A%0A✨%20Varian%20yang%20tersedia%0A✨%20Ketersediaan%20stok%0A✨%20Detail%20material%20produk%0A✨%20Harga%20terbaru%0A✨%20Metode%20pengambilan%0A%0ATerima%20kasih%20🙏"
           target="_blank"
@@ -1591,6 +1591,121 @@ Pesan
     </div>
   </section>
 
+<!-- FINANCE SECTION - STOCK CHART (STATIC VERSION) -->
+<section id="finance" class="py-20 md:py-28 px-6 md:px-10 bg-slate-900 text-white relative overflow-hidden">
+  
+  <!-- Decorative Glow Background -->
+  <div class="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto relative z-10" 
+       x-data="{
+          monthsData: [
+            { name: 'Jan', value: 15389 },
+            { name: 'Feb', value: 15939 },
+            { name: 'Mar', value: 17001 },
+            { name: 'Apr', value: 20741 },
+            { name: 'Mei', value: 35882 }
+          ],
+          getMaxVal() {
+            return Math.max(...this.monthsData.map(m => m.value));
+          },
+          formatNumber(val) {
+            return val.toLocaleString('id-ID');
+          }
+       }">
+
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div>
+        <div class="inline-flex items-center gap-2 bg-primary/20 text-primary border border-primary/30 px-4 py-1.5 rounded-full text-xs font-semibold mb-4">
+          <i class="fa-solid fa-chart-line"></i> Performance & Finance
+        </div>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white">
+          Catatan Pergerakan Saham Nova Wave
+        </h2>
+        <p class="text-slate-400 mt-2 text-sm md:text-base max-w-xl">
+          Visualisasi pergerakan dan pertumbuhan nilai saham Nova Wave periode Januari hingga Mei.
+        </p>
+      </div>
+
+      <!-- Legend Stock Info -->
+      <div class="flex items-center gap-3">
+        <div class="glass px-4 py-2.5 rounded-2xl border border-slate-800 flex items-center gap-2 text-sm text-slate-300">
+          <span class="w-3.5 h-3.5 rounded-full bg-primary inline-block"></span>
+          <span class="font-bold text-white">Profit</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart Container -->
+    <div class="bg-slate-800/60 backdrop-blur-md rounded-[35px] p-6 md:p-10 border border-slate-700/50 shadow-2xl">
+      
+      <!-- Chart Sub-Title -->
+      <div class="mb-8 flex items-center justify-between border-b border-slate-700/60 pb-4">
+        <h3 class="text-xl font-bold text-slate-200">
+          Grafik Nilai Saham (Jan - Mei)
+        </h3>
+        <span class="text-xs text-slate-400">
+          Diperbarui: Mei 2026
+        </span>
+      </div>
+
+      <!-- BAR CHART AREA -->
+      <div class="h-[380px] flex items-end justify-between gap-4 md:gap-10 pt-12 pb-2 px-2 md:px-8 border-b border-slate-700/50 relative">
+        
+        <!-- Y-Axis Grid Lines Background -->
+        <div class="absolute inset-x-0 top-0 h-full flex flex-col justify-between pointer-events-none opacity-10 px-4">
+          <div class="border-b border-white w-full"></div>
+          <div class="border-b border-white w-full"></div>
+          <div class="border-b border-white w-full"></div>
+          <div class="border-b border-white w-full"></div>
+          <div class="border-b border-white w-full"></div>
+        </div>
+
+        <!-- Loop Data Bulan -->
+        <template x-for="month in monthsData" :key="month.name">
+          <div class="group relative flex-1 h-full flex flex-col justify-end items-center z-10">
+            
+            <!-- Tooltip Hover -->
+            <div class="absolute -top-10 opacity-0 group-hover:opacity-100 transition-all duration-200 bg-white text-slate-900 font-black text-xs px-3 py-1.5 rounded-xl shadow-xl pointer-events-none transform group-hover:-translate-y-1 whitespace-nowrap">
+              <span x-text="month.name + ': ' + formatNumber(month.value)"></span>
+            </div>
+
+            <!-- Angka Nilai Saham di Atas Batang -->
+            <span class="mb-2 font-black text-xs md:text-sm text-primary group-hover:scale-105 transition-transform" 
+                  x-text="formatNumber(month.value)"></span>
+
+            <!-- Outer Track / Tiang Grafik -->
+            <div class="w-full max-w-[85px] h-full bg-slate-700/30 rounded-2xl p-1.5 flex flex-col justify-end transition-all duration-300 group-hover:bg-slate-700/50">
+              <!-- Inner Fill / Batang Grafik Utama -->
+              <div class="w-full bg-gradient-to-t from-primaryDark to-primary rounded-xl transition-all duration-500 group-hover:shadow-[0_0_25px_rgba(164,255,196,0.6)]"
+                   :style="'height: ' + Math.max((month.value / getMaxVal()) * 100, 10) + '%;'">
+              </div>
+            </div>
+
+            <!-- Label Bulan (Jan - Mei) -->
+            <span class="mt-4 text-xs md:text-sm font-bold text-slate-300 group-hover:text-primary transition" x-text="month.name"></span>
+          </div>
+        </template>
+
+      </div>
+
+      <!-- Footer Info -->
+      <div class="mt-6 pt-2 flex items-center justify-between text-xs text-slate-400">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-primary inline-block"></span>
+          <span>Pertumbuhan Saham Nova Wave</span>
+        </div>
+        <div>
+          <span>Tertinggi: <strong class="text-primary">35.882</strong> (Mei)</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
   <!-- TEAM -->
   <section id="team" class="py-20 md:py-28 px-6 md:px-10 bg-white">
     <div class="max-w-7xl mx-auto">
@@ -1777,7 +1892,7 @@ Pesan
           </div>
 
           <p class="text-slate-200 leading-8 text-[15px]">
-            Student Company  asal Indonesia dari SMAN 24 BANDUNG. hadir dengan semangat inovasi, dan kreativitas memberikan desain premium dari bahan eco-friendly yang mendukung kesehatan bumi.
+            Student Company  asal Indonesia dari SMAN 24 BANDUNG. dengan semangat inovasi, kreativitas, dan desain premium dari bahan eco-friendly yang mendukung kesehatan bumi.
           </p>
         </div>
 
